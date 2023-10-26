@@ -1,0 +1,3 @@
+Hvorfor afgrænses region of convergens næsten a en cirkel? 
+Hvordan giver det mening at sige at ROC er området hvori z-transformationen findes?
+Hvordan kan det være at eksemplerne i bogen som f.eks. figur 4.4a, hvor z-transformationerne kun findes for |z|>1/2
