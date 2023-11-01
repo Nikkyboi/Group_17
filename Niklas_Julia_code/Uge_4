@@ -1,0 +1,149 @@
+using FourierTools, WAV, Plots, CSV
+
+function read_wave_file(file)
+    return y, fs, nbits, opt = wavread(file)
+end
+
+function zero_padding_vec(f, h)
+    n = size(f)[1]
+    m = size(h)[1]
+
+    # Havde problemer med nogle dimentioner var (1, 2)
+    # så efter bruge functionen vec() så ville det lave vektoren
+    # double så lang men er fixet med at gemme længden før og lave den om
+    # til en vektor og dermed halvere den som vist nedenfor
+    
+    f = vec(f)
+    f = f[1:n]
+    h = vec(h)
+    h = h[1:m]
+    
+    # Læreren's ide om at den nye længde efter convolution
+    # Skal være N = (n ⋅ m - 1)
+    l = length(f) + length(h) - 1
+
+    # Zero padding
+    f = [f; zeros(l - n)]
+    h = [h; zeros(l - m)]
+
+    return f, h
+end
+
+function Manual_Convole_Linear(f, h)
+    f, h = zero_padding_vec(f, h)
+
+    f = fft(f)
+    h = fft(h)
+    
+    # Bliver nødt til at bruge .* fordi det er kompleks tal
+    # Derefter bruger jeg kun de reelle værdier
+    return real.(ifft(f.*h)), real.(ifft(f)), real.(ifft(h))
+end
+
+function plottet_af_signal(g, f, h)
+    plot(f, label = "Sax")
+    plot!(h, label = "room")
+    plot!(g, label = "Conv")
+end
+
+# Moving average impuls respons
+function impuls_MVA(ts, N)
+    f = zeros(length(ts))
+    for i in 1:N
+        f[i] = 1/N
+    end
+    return f
+end
+
+function opg_1_1(num)
+    if num == 1
+        y, fs_y, nbits, opt = read_wave_file("hands_on_01_sounds/Sax12.wav")
+        y1, fs_y1, nbits1, opt1 = read_wave_file("hands_on_02_sounds/church.wav")
+        
+        out, f, h = Manual_Convole_Linear(y, y1)
+        out = out/maximum(out)*0.5;
+       
+        wavwrite(out, "Home_made/test.wav", Fs = fs_y)
+        plottet_af_signal(out, f, h)
+    else
+        println("jklol")
+    end
+end
+
+function opg_2_1(num)
+    file = (CSV.File(("Data/Municipality_cases_time_series.csv"), select=["date_sample","Copenhagen"]))
+    if num == 1
+        plot(file.date_sample, file.Copenhagen, ylabel = "Antal Smittede", xlabel = "Dato" , label = "Copenhagen", title = "Corona i København")
+    elseif num == 2
+        # Test the whole data
+
+        #Data
+        ts = file.Copenhagen
+        
+        #Order
+        N = 5
+
+        # Moving Average
+        t = impuls_MVA(ts, N)
+
+        # Convolution
+        g = conv(file.Copenhagen, t)
+
+        #Plot
+        plot(file.date_sample, file.Copenhagen, label = "København")
+        lab = "MVA order - ", string(N)
+        plot!(file.date_sample, g, label = lab)
+
+    elseif num == 3
+        #Data
+        ts = file.Copenhagen
+        
+        #Order
+        N = 5
+
+        # Moving Average
+        t = impuls_MVA(ts, N)
+
+        # Convolution
+        g = conv(file.Copenhagen, t)
+        
+        # 4 weeks
+        t = 7*4
+
+        # Fixer nok senere hvis relevant
+        tid = file.date_sample[1:t]
+        copen = file.Copenhagen[1:t]
+        g = g[1:t]
+
+        #Plot
+        plot(t, copen, label = "København")
+        lab = "MVA order - ", string(N)
+        plot!(tid, g, label = lab)
+    else
+        println("jklol")
+    end
+end
+
+function opg_2_2(num)
+
+    if num == 1
+        file = (CSV.File(("Data/Municipality_cases_time_series.csv"), select=["date_sample","Copenhagen"]))
+        #out, f, h = Manual_Convole_Linear(y, y1)
+        f = fft(file.Copenhagen)
+        ts = file.Copenhagen
+        h = impuls_MVA(ts, 3)
+        h = fft(h)
+
+        out = real.(ifft(f.*h))
+        f = real.(ifft(f))
+        h = real.(ifft(h))
+        plot(f, label = "Copenhagen")
+        plot!(h, label = "Impuls")
+        plot!(out, label = "Conv")
+    end
+    #Mangler mere men orker ikke
+end
+
+#opg_1_1(1)
+#opg_2_1(3)
+#opg_2_2(1)

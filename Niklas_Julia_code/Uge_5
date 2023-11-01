@@ -1,0 +1,29 @@
+function impuls_respons(n, N)
+    if 0 < n < N
+        1
+    else
+        0
+    end
+end
+
+function running_sum(n, N)
+    h_rs = impuls_respons(n, N)
+    N0 = N + 1
+    return 1/N0 * h_rs
+end
+
+function poles_zeros(sys)
+    return poles(sys), tzeros(sys)
+end
+
+function opg_1_1(num)
+    #Such empty
+    prinln("jklol")
+end
+
+function opg_1_2(num)
+    
+end
+
+#opg_1_1(1)
+opg_1_2()

@@ -1,0 +1,190 @@
+using Plots, WAV, FourierTools, Infinity
+
+function resample(p, q, fs)
+    return p/q * fs
+end
+
+function descible(signal)
+    dB = 20*log10.(abs.(signal))
+end
+
+function spectrum(signal, fs)
+    y = fft(signal)
+    y = y/length(y)
+    len_n_samples = length(n);     # in samples
+    len_n_s = length(n)/fs         # in time
+end
+
+function heaviside(t)
+    0.5 * (sign(t) + 1)
+end
+
+function squarewave(t, start, stop, a)
+    if start < t && t <= stop
+        a
+    else
+        0
+    end
+end
+
+function line_ramp(t, start, stop)
+    if start < t && t <= stop
+        t
+    else
+        0
+    end
+end
+
+function impuls(t, start)
+    if t == start
+        1.0
+    else
+        0.0
+    end
+end
+
+# Moving average impuls respons
+function impuls_MVA(ts, N)
+    f = zeros(length(ts))
+    for i in 1:N
+        f[i] = 1/N
+    end
+    return f
+end
+
+#Generate sinusoidal
+function gen_sinusoid(A, f, θ, fs, T)
+    x(t) = A*sin(f*t + θ)
+
+    Ts = 1.0 / fs
+    ts = 0:Ts:T
+
+    #f = x.(ts)
+
+    return ts, x
+end
+
+function poles_zeros(sys)
+    return poles(sys), tzeros(sys)
+end
+
+function pole_zero_plot(sys)
+    pzmap(c2d(sys, 0.1))
+end
+
+
+function plot_samp_function(x, t)
+    f = x.(t)
+    plot(t, f, label="f", seriestype=:scatter)
+    title!("Sampling")
+    xlabel!("x - [0:T]")
+    ylabel!("y")
+end
+
+function plot_line_function(x, t)
+    f = x.(t)
+    #Plot with a line:
+    plot(t, f, label="f")
+    title!("Sampling")
+    xlabel!("x - [0:T]")
+    ylabel!("y")
+end
+
+function plot_line_samp_function(x, t)
+    f = x.(t)
+    plot(t, f, label="f")
+    scatter!(t, f, label="data")
+end
+
+function plot_wave(file)
+    y, fs, nbits, opt = read_wave_file(file)
+    f = "sampling = ", Int(fs), "Number bits =", Int(nbits)
+    plot(y, title = f)
+end
+
+function read_wave_file(file)
+    return y, fs, nbits, opt = wavread(file)
+end
+
+function opg_1()
+    #trunc(Int, 20*pi*2+10)
+    #t = range(0, 4, length = 20)
+
+    # Constants
+    T = 4.0  # Duration of the signal in seconds
+    fs = 200  # Sampling frequency in Hz
+    A = 2.0  # Amplitude
+    phi = π / 4.0  # Phase
+    f = 10.0  # Frequency in Hz
+
+    # Create a time vector
+    Ts = 1.0 / fs
+    t = 0:Ts:T
+
+    # Function
+    x(t) = A * cos(2π * f * t + phi)
+    #f = x.(t)
+    plot_line_samp_function(x, t)
+
+    #Plot:
+    #plot_line_samp(x, t)
+    t1 = 0:1/10:4
+    t2 = 0:1/4:4
+    t3 = 0:1/2:4
+    t4 = 0:1/2:4
+    t5 = 0:0.25:4
+
+    f1 = x.(t1)
+    f2 = x.(t2)
+    f3 = x.(t3)
+    f4 = x.(t4)
+    f5 = x.(t5)
+
+    f = [f1, f2, f3, f4, f5]
+
+    p1 = plot(t1, f1, label="10Hz")
+    p2 = plot!(t2, f2, label="4Hz")
+    p3 = plot!(t3, f3, label="2Hz")
+    p4 = plot!(t4, f4, label="1Hz")
+    p5 = plot!(t5, f5, label="0.25Hz")
+
+
+    #plot(p1, p2, p3, p4, p5)
+    #Questions:
+    #println("samples - ", length(f))
+    #println("samples - ", fs * T)
+
+end
+
+function opg_2_2()
+    #Variable (imagine it is in kHz)
+    Ak  = 1
+    f0 = 1
+    ϕ = rand(0:2*pi)
+    N = 50
+    s(t, N) = sum(Ak*sin(2*pi*k*f0*t + ϕ) for k in 1:N)
+
+    # Create a time vector
+    T = 10.0  # Duration of the signal in seconds
+    fs = 44.1  # Sampling frequency in Hz
+    Ts = 1.0 / fs
+    t = 0:Ts:T
+    f = s.(t)
+    plot(t, f)
+end
+
+function opg_3_3()
+    t, f = gen_sinusoid(10, 10, pi/2, 25, 2)
+    plot_line_samp_function(f, t)
+end
+"""
+#File path
+#t = "hands_on_01_sounds/lecture01_demo_aliasing_mini-me_short_4bits.wav"
+#plot_wave(t)
+#y, fs, nbits, opt = read_wave_file(t)
+# Play file sound:
+#wavplay(y, fs)
+"""
+
+opg_1()
+
