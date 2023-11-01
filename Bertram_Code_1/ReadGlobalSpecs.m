@@ -1,7 +1,4 @@
-%%%
-clear;
 %Read the Global Specs File.
-
 GS = readlines('global_specs.txt');
 % Use input signal or generated signal? Possible: wav, generate
 InputSignal = GS(3,1);

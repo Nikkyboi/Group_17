@@ -2,6 +2,9 @@ clc;
 clear;
 close all;
 
+% easy to change variables
+RippledB = 6;
+
 %Read Global Specs
 run('ReadGlobalSpecs.m');
 
