@@ -17,7 +17,7 @@ elseif TypeOfSignal == "tone"
     %plot(TimeVector,tone);
 elseif TypeOfSignal == "tone-complex"
     fprintf('TypeOfSignal is tone-complex \n');
-    toneComplex = generate_toneComplex();
+    [toneComplex,TimeVector] = generate_toneComplex(TotalDuration,SamplingFrequency,ToneFrequencies);
 elseif TypeOfSignal == "noise"
     fprintf('TypeOfSignal is noise \n');
     [noise,TimeVector] = generate_noice(TotalDuration,SampleFrequency);
@@ -61,9 +61,13 @@ tone = sin(2*pi*TFs.*TimeVector);
 
 end
 
-function [toneComplex] = generate_toneComplex()
+function [toneComplex,TimeVector] = generate_toneComplex(TDur,Fs,TFs)
 
-toneComplex = 0:1/Fs:TDur;
+TimeVector = [0:1/Fs:TDur];
+for N = 0:numel(ToneFrequencies)
+    tone =+sin(2*pi*TFs.*TimeVector);
+end
+toneComplex = tone;
 end
 
 function [noise,TimeVector] = generate_noice(TDur,fs)
