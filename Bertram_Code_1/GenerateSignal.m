@@ -8,10 +8,9 @@ Periodicity
 ToneFrequencies
 
 
-if true == true
-    %TypeOfSignal == "rect"
+if TypeOfSignal == "rect"
     fprintf('TypeOfSignal is rect \n');
-    rect = generate_rect(TotalDuration,ToneFrequencies(1), Periodicity);
+    [rect,TimeVector] = generate_rect(TotalDuration,ToneFrequencies(1), Periodicity);
 elseif TypeOfSignal == "tone"
     fprintf('TypeOfSignal is tone \n');
     [tone,TimeVector] = generate_tone(TotalDuration,SamplingFrequency,ToneFrequencies(1));
@@ -43,10 +42,14 @@ end
 TimeVector = (0:1/Fs:TDur);
 % Makes a rect vector. N+1 when 0 need to be included.
 
-for N = 0:TDur/PD
-    tone =+ones(PD*N,Fs*PD*N);
+A = ones(1,Fs*PD);
+B = zeros(1,Fs*PD);
+C = [A B];
+for N = 1:TDur/2
+    C = [C C];
 end
-rect = tone;
+
+rect = C;
 
 end
 
