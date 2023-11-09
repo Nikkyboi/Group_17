@@ -8,7 +8,8 @@ Periodicity
 ToneFrequencies
 
 
-if TypeOfSignal == "rect"
+if true == true
+    %TypeOfSignal == "rect"
     fprintf('TypeOfSignal is rect \n');
     rect = generate_rect(TotalDuration,ToneFrequencies(1), Periodicity);
 elseif TypeOfSignal == "tone"
@@ -30,7 +31,7 @@ end
 fprintf("Done Generate Signal.m");
 
 % Generate Signal Functions
-function [rect] = generate_rect(TDur,Fs,PD)
+function [rect,TimeVector] = generate_rect(TDur,Fs,PD)
 % This function generates a rect wave signal, with length TotalDuration and
 % sampling Frequency SamplingFrequency. 
 N = TDur/Fs;
@@ -39,10 +40,13 @@ if abs(N-round(N))>0
     warning('Length of vector not integer, N has been rounded off to %i',round(N));
     N=round(N);
 end
-
+TimeVector = (0:1/Fs:TDur);
 % Makes a rect vector. N+1 when 0 need to be included.
-rect = ones(1,N+1).*1/TDur;
 
+for N = 0:TDur/PD
+    tone =+ones(PD*N,Fs*PD*N);
+end
+rect = tone;
 
 end
 
