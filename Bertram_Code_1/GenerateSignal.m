@@ -8,7 +8,7 @@ Periodicity
 ToneFrequencies
 
 
-if TypeOfSignal == "rect"
+if TypeOfSignal == "tone"
     fprintf('TypeOfSignal is rect \n');
     [rect,TimeVector] = generate_rect(TotalDuration,ToneFrequencies(1), Periodicity);
 elseif TypeOfSignal == "tone"
@@ -45,11 +45,11 @@ TimeVector = (0:1/Fs:TDur);
 A = ones(1,Fs*PD);
 B = zeros(1,Fs*PD);
 C = [A B];
-for N = 1:TDur/2
+for N = 1:TDur
     C = [C C];
 end
-
-rect = C;
+disp(C);
+rect = C(1:TDur*Fs);
 
 end
 
