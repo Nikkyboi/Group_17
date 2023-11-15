@@ -1,7 +1,7 @@
 %Read the Global Specs File.
 GS = readlines('global_specs.txt');
 % Use input signal or generated signal? Possible: wav, generate
-InputSignal = GS(3,1);
+InputSignalType = GS(3,1);
 % WAV-filename
 FileName = GS(5,1);
 % Target sampling frequency (Hz) of the .wav file
