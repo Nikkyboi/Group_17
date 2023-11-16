@@ -1,6 +1,6 @@
 
 
-fprintf("Running Generate Signal.m");
+fprintf("Running Generate Signal.m \n");
 
 % This will choose to generate the correct type of signal specified by the
 % Global Specs
@@ -27,7 +27,8 @@ else
     warning('not valid TypeOfSignal \n');
 end
 
-fprintf("Done Generate Signal.m");
+GenerateZeroSignal = zeros(1,SamplingFrequency*TotalDuration);
+fprintf("Done Generate Signal.m \n");
 
 
 
