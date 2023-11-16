@@ -51,31 +51,42 @@ fprintf("Done Generate Signal.m");
 
 
 % Generate Signal Functions
+
 function [rect,TimeVector] = generate_rect(TDur,Fs,PD)
 % This function generates a squarewave signal, with length
 % TotalDuration,sampling Frequency and Periodicity.
+
+% Check for roundings 
 N = TDur/(1/Fs);
 
 if abs(N-round(N))>0
     warning('Length of vector not integer, N has been rounded off to %i',round(N));
     N=round(N);
 end
-TimeVector = (0:1/Fs:TDur-1/Fs);
-% Makes a rect vector. N+1 when 0 need to be included.
 
+
+TimeVector = (0:1/Fs:TDur-1/Fs);
+
+% Create a array with ones and zeroes, with the amount equals to the
+% peridecity duration
 A = ones(1,Fs*PD);
 B = zeros(1,Fs*PD);
 C = [A B];
-for N = 1:TDur
+
+% repeat looping the array to be longer then the total signal duration
+for N = 0:PD:TDur
     C = [C C];
 end
 
+% return the neede part
 rect = C(1:TDur*Fs);
 end
 
 function [tone,TimeVector] = generate_tone(TDur,Fs,TFs)
 %This function generates a tone wave signal, with length TotalDuration, and
 %sampling frequency SamplingFrequency.
+
+% Check for roundings 
 N = TDur/(1/Fs);
 
 if abs(N-round(N))>0
@@ -90,6 +101,8 @@ tone = sin(2*pi*TFs.*TimeVector);
 end
 
 function [toneComplex,TimeVector] = generate_toneComplex(TDur,Fs,TFs)
+
+% Check for roundings 
 N = TDur/(1/Fs);
 
 if abs(N-round(N))>0
@@ -98,22 +111,32 @@ if abs(N-round(N))>0
 end
 
 TimeVector = [0:1/Fs:TDur-1/Fs];
+
+% Make mulitble tones listed as collomn arrays.
 for N = 1:numel(TFs)
     tone(:,N) = sin(2*pi*TFs(N).*TimeVector);
 end
+
+% Sum the tones generatied ind the collomn array
 toneComplex = sum(tone,2);
 end
 
 function [noise,TimeVector] = generate_noice(TDur,Fs)
 %this function generates a random noise wave signal, with length TotalDuration
 %and sampling frequency SamplingFrequency.
+
+
+% Check for roundings 
 N = TDur/(1/Fs);
 
 if abs(N-round(N))>0
     warning('Length of vector not integer, N has been rounded off to %i',round(N));
     N=round(N);
 end
+
 TimeVector = [0:1/Fs:TDur-1/Fs];
+
+% Noise is generated from rand function
 noise = transpose(rand(Fs*TDur,1));
 end
 
