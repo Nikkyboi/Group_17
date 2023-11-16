@@ -6,7 +6,7 @@ function [Bn] = Make_Filt_FIR(n,fs,CuttOffFreqencies,ApproxType,WindowType)
     elseif WindowType == 'hann'
         Bn = Make_Hann_Filt(n,fs,CuttOffFreqencies,Type);
     elseif WindowType == 'hamming'
-        Bn = Make_Hann_Filt(n,fs,CuttOffFreqencies,Type);
+        Bn = Make_Hamming_Filt(n,fs,CuttOffFreqencies,Type);
     else 
         error(WindowType,'Not supported in this version, try using hann, hamming or rect')
     end
