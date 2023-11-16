@@ -16,7 +16,7 @@
     N = length(0:1/SamplingFrequency:TotalDuration);
 
 %   Ved ikke hvordan jeg sætter denne parameter:
-    N1 = SamplingFrequency;
+    N1 = N;
 
 %   Assuming time domain:
 if WindowType == "hann";
@@ -148,7 +148,7 @@ elseif WindowType == "rect";
     s = "Rectangular"
 end
     
-    stft(s0, SamplingFrequency, Window= W, OverlapLength=Overlap, FFTLength=SamplingFrequency)
+    stft(s0, SamplingFrequency, Window= W, OverlapLength=Overlap, FFTLength=N)
 %%
 % Zero Padding
 time_difference = length(t) - N;
