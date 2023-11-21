@@ -4,7 +4,7 @@ fprintf("Running Generate Signal.m \n");
 
 % This will choose to generate the correct type of signal specified by the
 % Global Specs
-if TypeOfSignal == "tone"
+if TypeOfSignal == "rect"
     fprintf('TypeOfSignal is rect \n');
     [rect,TimeVector] = generate_rect(TotalDuration,TargetSamplingFrequency, Periodicity);
     %plot(TimeVector,rect);
@@ -29,24 +29,6 @@ end
 
 GenerateZeroSignal = zeros(1,TargetSamplingFrequency*TotalDuration);
 fprintf("Done Generate Signal.m \n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -79,7 +61,7 @@ for N = 0:PD:TDur
     C = [C C];
 end
 
-% return the neede part
+% return the square
 rect = C(1:TDur*Fs);
 end
 
@@ -140,10 +122,3 @@ TimeVector = [0:1/Fs:TDur-1/Fs];
 % Noise is generated from rand function
 noise = transpose(rand(Fs*TDur,1));
 end
-
-
-
-
-
-
-
