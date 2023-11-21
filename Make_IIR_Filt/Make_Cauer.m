@@ -1,3 +1,6 @@
+%Function making an Elliptic Cauer filter using Matlabs own function 'ellip'
+
+
 function [Bn,An] = Make_Cauer(n,fs,CuttOffFreqencies,ApproxType,RippledB)
                 
     TypeFilt = Make_Type(ApproxType);

@@ -1,3 +1,5 @@
+%Function that makes you choose the type of filter 
+
 function TypeFilt = Make_Type(ApproxType)
     
     %This function takes 1 input (ApproxType) from global specs and outputs

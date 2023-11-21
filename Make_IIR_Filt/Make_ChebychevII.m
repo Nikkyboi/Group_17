@@ -1,3 +1,5 @@
+%Function making a ChebychevI filter using Matlabs own function 'cheby2'
+
 function [Bn,An] = Make_ChebychevII(n,fs,CuttOffFreqencies,ApproxType,RippledB)
             
     TypeFilt = Make_Type(ApproxType);
