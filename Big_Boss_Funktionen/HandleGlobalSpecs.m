@@ -8,14 +8,22 @@ RippledB = 6;
 %Read Global Specs
 run('ReadGlobalSpecs.m');
 
-% Read the .Wav file 
-run('ReadFile.m');
+if InputSignalType == "wav"
+    % Read the .Wav file 
+    run('ReadFile.m');
 
-% Generate Signal
-run('GenerateSignal.m');
+    % Resample?
+    run('Resample.m');
 
-% Resample?
-run('Resample.m');
+elseif InputSignalType == "generate"
+    % Generate Signal
+    run('GenerateSignal.m');
+
+else 
+    warning('not valid InputSignalType \n');
+    warning('not wav or generate \n');
+
+
 
 % Frequency analyser
 run('FrequencyAnalyser.m');
