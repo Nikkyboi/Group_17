@@ -1,0 +1,214 @@
+using Plots, WAV, FourierTools, Infinity
+
+function squarewave(t, start, stop, a)
+    if start < t && t <= stop
+        a
+    else
+        0
+    end
+end
+
+# Moving average impuls respons
+function impuls_MVA(ts, N)
+    f = zeros(length(ts))
+    for i in 1:N
+        f[i] = 1/N
+    end
+    return f
+end
+
+function line_ramp(t, start, stop)
+    if start < t && t <= stop
+        t - start
+    else
+        0
+    end
+end
+
+#Generate sinusoidal
+function gen_sinusoid(A, f, θ, fs, T)
+    x(t) = A*sin(f*t + θ)
+
+    Ts = 1.0 / fs
+    ts = 0:Ts:T
+
+    #f = x.(ts)
+
+    return ts, x
+end
+
+#Read sound files "WAV"
+function read_wave_file(file)
+    return y, fs, nbits, opt = wavread(file)
+end
+
+
+function opg_1_1(num)
+    if num == 1
+        #Ramp & Ramp
+        fs = 10*10^3;      # sampling frequency in Hz
+        T_tot = 0.1;       # total duration in s
+        T_0 = 10e-3;       # duration T0 in s
+        ts = 1/fs:1/fs:T_tot;   # time vector
+
+        f = squarewave.(ts, 0, 0.01, 2)
+        g = squarewave.(ts, 0.02, 0.03, 1)
+        conv_result = conv(f, g)/10
+        t_ramp_ramp = (1:length(conv_result))/fs;   #can you make sense of this?
+        plot(ts, f, line=:stem, label = "f")
+        plot!(ts, g, line=:stem, label = "g")
+        plot!(ts, conv_result, seriestype=:scatter, label = "conv_result")
+    elseif num == 2
+        #Line & Ramp
+        fs = 10*10^3;      # sampling frequency in Hz
+        T_tot = 0.1;       # total duration in s
+        T_0 = 10e-3;       # duration T0 in s
+        ts = 1/fs:1/fs:T_tot;   # time vector
+
+        f = line_ramp.(ts, 0, T_0)
+        g = squarewave.(ts, 0.0, 0.02, T_0)
+        conv_result = conv(f, g)
+        plot(ts, g, line=:stem, label = "square")
+        plot!(ts, f, line=:stem, label = "line")
+        plot!(ts, conv_result, seriestype=:scatter, label = "conv_result")
+    else
+        #Line & Line
+        fs = 10*10^3;      # sampling frequency in Hz
+        T_tot = 0.1;       # total duration in s
+        T_0 = 10e-3;       # duration T0 in s
+        ts = 1/fs:1/fs:T_tot;   # time vector
+
+        f = line_ramp.(ts, 0, T_0)
+        g = line_ramp.(ts, T_0/2, 2*T_0)
+        conv_result = conv(f, g)
+        plot(ts, f, line=:stem, label = "f")
+        plot!(ts, g, line=:stem, label = "g")
+        plot!(ts, conv_result, seriestype=:scatter, label = "conv_result")
+    end
+end
+
+function opg_1_2(show)
+    # Signal 1:
+    f = 500         # signal frequency = 5 Hz
+    Fs = 10000
+    T = 0.005           # Time length  
+    A = 0.1           # Amplitude
+    θ = 0           # Phase
+
+    ts1, g1 = gen_sinusoid(A, f, θ, T, Fs)
+
+    # Signal 2:
+    f = 2200         # signal frequency = 5 Hz
+    T = 0.005           # Time length  
+    A = 0.1           # Amplitude
+    θ = 0           # Phase
+
+    ts2, g2 = gen_sinusoid(A, f, θ, T, Fs)
+
+    # Signal 3:
+    f = 4050         # signal frequency = 5 Hz
+    T = 0.005           # Time length  
+    A = 0.1           # Amplitude
+    θ = 0           # Phase
+
+    ts3, g3 = gen_sinusoid(A, f, θ, T, Fs)
+
+    # Implement moving average
+    Fs = 10000      # sampling frequency = 10kHz
+    f = 500         # signal frequency = 5 Hz
+    #sample = 1000   # no. of samples
+    Tl = 0.005         # Time length  
+
+    Ts = 1.0 / Fs   # sampling
+    ts0 = 0:Ts:Tl     # time vector
+
+    N = 21          # Order
+
+    f = impuls_MVA(ts0, N)
+
+    #show == 1
+
+    if show == 1
+        h = conv(f, g1.(ts1))
+        plot(ts0, f, seriestype=:scatter, label = "impuls")
+        plot!(ts1, g1, label = "sin _ 1")
+        plot!(ts1, h, label = "sin_1 x impuls")
+
+    elseif show == 2
+        h = conv(f, g2.(ts2))
+        plot(ts0, f, seriestype=:scatter, label = "impuls")
+        plot!(ts1, g2, label = "sin _ 1")
+        plot!(ts1, h, label = "sin_1 x impuls")
+
+    elseif show == 3
+        h = conv(f, g3.(ts3))
+        plot(ts0, f, seriestype=:scatter, label = "impuls")
+        plot!(ts1, g3, label = "sin _ 1")
+        plot!(ts1, h, label = "sin_1 x impuls")
+
+    else
+        h = conv(f, g3.(ts3))
+        plot(ts0, f, seriestype=:scatter, label = "impuls")
+        plot!(ts1, g3, label = "sin _ 1")
+        plot!(ts1, h, label = "sin_1 x impuls")
+    end
+end
+
+function opg_2_1()
+    # some parameters
+    fs = 44100;                   # sampling frequency
+    α = 0.8                       # reflection attentuation
+    τ = 1                         # "echo" delay in s - try multiples!
+    delay_samples = floor(τ*fs)   # calculate the delay in samples
+
+    # generate the IR
+    h_ir = [1; zeros(delay_samples,1); α];
+    #wavplay("hands_on_01_sounds/Sax12.wav")
+    y, fs_y, nbits, opt = read_wave_file("hands_on_01_sounds/Sax12.wav")
+
+    # in case you'll load a stereo signal you might want to go MONO
+    y = y[:];       # we fist make it column vectors
+    y = y[:,1];     # and then we only use the first column
+    #sr(t) = s(t) + α*s(t - τ)
+
+    #out = conv(h_ir, y)
+    if length(h_ir) < length(y)
+        h_ir = [h_ir; zeros(length(y) - length(h_ir))]
+    elseif length(h_ir) > length(y)
+        y = [y; zeros(length(h_ir) - length(y))]
+    else
+        println("jklol")
+    end
+    #println(length(h_ir))
+    #println(length(y))
+    out = conv(h_ir, y);
+
+    # normalize the amplitude that you don't blow your ears
+    out = out/maximum(out)*0.5;
+
+    wavwrite(out, "Home_made/test.wav", Fs = fs)
+end
+
+function opg_2_2()
+    y, fs_y, nbits, opt = read_wave_file("hands_on_01_sounds/Sax12.wav")
+
+    y1, fs_y1, nbits1, opt1 = read_wave_file("hands_on_01_sounds/piano.wav")
+
+    if size(y)[1] > size(y1)[1]
+        y1 = [y1; zeros(size(y)[1]-size(y1)[1],2)];
+    elseif size(y)[1] < size(y1)[1]
+        y = [y; zeros(size(y1)[1]-size(y)[1],1)];
+    else size(y)[1] == size(y1)[1]
+        println("jklol")
+    end
+
+    out = conv(y, y1)
+    out = out/maximum(out)*0.5;
+    wavwrite(out, "Home_made/test.wav", Fs = fs_y)
+end
+
+
+#opg_1_1(3)
+#opg_1_2(1)
+#opg_2_1()
+opg_2_2()

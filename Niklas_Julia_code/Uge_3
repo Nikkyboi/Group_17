@@ -1,0 +1,212 @@
+using ControlSystems, Plots, WAV
+
+function rect(t, w)
+    if 0 < t < w
+        1/w
+    else 
+        0
+    end
+end
+
+function poles_zeros(sys)
+    return poles(sys), tzeros(sys)
+end
+
+function descible(signal)
+    return 20*log10.(abs.(signal))
+end
+
+function phase(signal)
+    return angle.(signal) * 180/pi
+end
+
+function spectrum_circel(signal, fs)
+    δ = frequency_vector(signal, fs)
+
+    # get the positive frequencies first
+    f_pos = 0:δ:fs/2;           # we'll hit fs/2
+    f_neg = -fs/2+δ:δ:-δ;    # so we come from the back towards 0
+    
+    return vcat(f_pos, f_neg)
+end
+
+function frequency_vector(f, fs)
+    T = length(f)/fs
+    δ = 1/T
+    return δ
+end
+
+# Cirkel (example -2.5⋅10^4 - 2.5⋅10^4)
+# linear (example 0 - 2.5⋅10^4)
+function Magnitude_spectrum(signal, fs, type)
+    if type == "c"
+        t = spectrum_circel(signal, fs)
+    else
+        δ = frequency_vector(signal, fs)
+        t = 0:δ:fs/2;           # we'll hit fs/2
+    end
+
+    y = fft(signal)
+    dB = descible.(y)
+    db = dB[1:length(t)]
+    return plot(t, db, title = "Magnitude vs Hz", label = "signal", xlabel = "Frequency / Hz", ylabel = "Magnitude / Db")
+end
+
+function Phase_spectrum(signal, fs, type)
+    if type == "c"
+        t = spectrum_circel(signal, fs)
+    else
+        δ = frequency_vector(signal, fs)
+        t = 0:10:fs/2;           # we'll hit fs/2
+    end
+
+    y = fft(signal)
+    ph = phase.(y)
+    ph = ph[1:length(t)]
+    plot(t, ph, title = "Phase vs Hz")
+    xlabel!("Frequency / Hz")
+    ylabel!("Phase")
+end
+
+function Power_spectrum(signal, fs, type)
+    if type == "c"
+        t = spectrum_circel(signal, fs)
+    else
+        δ = frequency_vector(signal, fs)
+        t = 0:δ:fs/2;           # we'll hit fs/2
+    end
+
+    y = fft(signal)
+    dB = abs.(descible.(y))
+    db = dB[1:length(t)]
+    plot(t, db, title = "Power vs Hz", label = "main")
+    xlabel!("Frequency / Hz")
+    ylabel!("Power / W")
+    
+end
+
+function gen_cosine(A, f, θ, fs, T)
+    x(t) = A*cos(f*t + θ)
+
+    Ts = 1.0 / fs
+    ts = 0:Ts:T
+
+    #f = x.(ts)
+
+    return ts, x
+end
+
+function fundamental_freq(f, fs)
+    y = fft(f)
+    maxx = argmax(abs.(y))
+    maxx = maxx[1]/length(f)
+    return maxx * fs
+end
+
+function read_wave_file(file)
+    return y, fs, nbits, opt = wavread(file)
+end
+
+function opg_1_2(num)
+    fs = 5000
+    T = 4
+    x(t) = sum(cos(2*pi*(2^k)*25*t + k*pi/3) for k = 0:4)
+
+    if num == 1
+        T0 = 0.8
+        T1 = 0.9
+        Ts = 1.0 / fs
+        t = T0:Ts:T1
+        f = x.(t)
+        plot(t, f)
+
+    elseif num == 2
+        Ts = 1.0 / fs
+        t = 0:Ts:T
+        signal = x.(t)
+        Magnitude_spectrum(signal, fs, "c")
+    
+    elseif num == 3
+        #fs = 10000
+        Ts = 1.0 / fs
+        t = 0:Ts:T
+        signal = x.(t)
+        Magnitude_spectrum(signal, fs, "l")
+    elseif num == 4
+        println("jklol")
+        # Ikke kommet så langt
+    elseif num == 5
+        println("jklol")
+        # Ikke kommet så langt
+    else
+        println("jklol")
+    end
+end
+
+function opg_1_3(num)
+    f, fs, nbits1, opt1 = read_wave_file("hands_on_01_sounds/piano.wav")
+    T = 2
+    Ts = 1.0 / fs
+    t = 0:Ts:T
+    f = f[1:length(t)]
+    if num == 1
+        T = 1
+        Ts = 1.0 / fs
+        t = 0:Ts:T
+        f = f[1:length(t)]
+        plot(t, f, label = "Piano sound", title = "Piano sound vs time")
+
+    elseif num == 2
+
+        Magnitude_spectrum(f, fs, "l")
+    
+    elseif num == 3
+        #Nu laver dette kun power spectrum og
+        #Ikke finder fundamental frekvensen
+        Power_spectrum(f, fs, 'l')
+    else
+        #Virker ikke orker ikke fix
+        freq = fundamental_freq(f, fs)
+        phi = pi/4
+        #x(t) = sum(10*10sin(2*pi*k*freq*t+ pi/3) for k = 1:2)
+        x(t) = sum(1E15(exp(im*phi*k) + exp(-im*phi*k)) for k = 1:20)
+        signal = x.(t)
+
+        δ = frequency_vector(signal, fs)
+        k = 0:δ:fs/2;           # we'll hit fs/2
+
+        y = fft(signal)
+        dB = abs.(descible.(y))
+        db = dB[1:length(k)]
+        plot!(k, db, title = "Power vs Hz", label = "second")
+
+
+        #out = ifft(signal)
+        #out = signal/argmax(signal)*0.5;
+        wavwrite(y, "Home_made/test.wav", Fs = fs)
+
+        #y = f[1:length(t)]
+        #plot(t, y)
+        #Magnitude_spectrum(f, fs, "l")
+        #Phase_spectrum(f, fs, "l")
+        #Power_spectrum(f, fs, "l")
+
+        #bode(fs)
+    end
+end
+
+function opg_2()
+    T = 3
+    fs = 50
+    Ts = 1.0 / fs
+    t = 0:Ts:T
+
+    f = rect.(t, 1)
+    p1 = Magnitude_spectrum(f, fs, "c")
+    p2 = plot(t, f, xlabel = "Time [s]", ylabel = "Amplitude ?", title = "Ramp signal", label = "ramp")
+    plot(p2, p1)
+end
+
+#opg_1_2(3)
+#opg_1_3(1)
+opg_2()

@@ -2,7 +2,7 @@
 % Use input signal or generated signal? Possible: wav, generate
 wav
 % WAV-filename
-Sax12.wav
+inputsignal.wav
 % Target sampling frequency (Hz) of the .wav file
 10000
 % SIGNAL GENERATOR
@@ -20,20 +20,20 @@ tone
 % Spectral resolution (Hz)
 1
 % Window type for time frame DFT/STFT. Possible: hann, hamming, rect
-hamming
+hann
 % Overlap for STFT (%)
 50
 % FILTERING
 % Use FIR or IIR?
 fir
 % filter order
-4
+15
 % Approximation method. Possible: butterworth, chebychevI, chebychevII, cauer
 butterworth
 % type. Possible: lp, hp, bp, bs
-bp
+lp
 %cut-off frequency/-ies (Hz)
-1000, 4000
+1000
 % PLOTTING
 % Limits of axis in time and spectrum.
 % xlim - time (s)
