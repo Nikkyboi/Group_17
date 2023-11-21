@@ -22,7 +22,7 @@ tone
 % Window type for time frame DFT/STFT. Possible: hann, hamming, rect
 hamming
 % Overlap for STFT (%)
-50
+60
 % FILTERING
 % Use FIR or IIR?
 fir
