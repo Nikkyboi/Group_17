@@ -11,7 +11,7 @@ frequency_vec = linspace(0, TargetSamplingFrequency/2, (n/2));
 frequency_spec = linspace(-TargetSamplingFrequency/2, TargetSamplingFrequency/2, n);
  
 Pos_Freq = freq(1:end/2);
-Pos_Freq = fliplr(positive_frequencies)
+Pos_Freq = fliplr(Pos_Freq);
 
 figure(1)
 subplot(2,1,1)
