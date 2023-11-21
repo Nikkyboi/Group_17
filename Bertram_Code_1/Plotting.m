@@ -17,29 +17,14 @@ title("Time signal");
 xlabel('time (s)');
 
 
-%   Compute and plot frequency domain spectrums
-sys = tf()
-
+%   Compute bode plot
+sys = tf([bn],[an])
+N1 = TargetSamplingFrequency/SpectralRes
 %   Bode plot logarithmic
 subplot(3, 1, 2);
-plot(frequencies, mag)
-yscale log
-xscale log
+bode(sys, {1,N1})
 
-%semilogx(frequencies(1:length(X)/2), 20*log10(abs(X(1:length(X)/2))));
 
-title("Magnitude");
-xlabel('Freqency [Hz]');
-ylabel('Magnitude [dB]')
-
-subplot(3, 1, 3);
-plot(frequencies, phase)
-yscale log
-xscale log
-%semilogx(frequencies(1:length(X)/2), angle(X(1:length(X)/2)) * (180/pi));
-title("Phase");
-xlabel('Frequency [Hz]');
-ylabel('Phase');
 
 
 

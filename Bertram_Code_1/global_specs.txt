@@ -2,7 +2,7 @@
 % Use input signal or generated signal? Possible: wav, generate
 wav
 % WAV-filename
-inputsignal.wav
+Sax12.wav
 % Target sampling frequency (Hz) of the .wav file
 10000
 % SIGNAL GENERATOR
@@ -20,7 +20,7 @@ tone
 % Spectral resolution (Hz)
 1
 % Window type for time frame DFT/STFT. Possible: hann, hamming, rect
-rect
+hamming
 % Overlap for STFT (%)
 50
 % FILTERING
