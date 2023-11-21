@@ -9,7 +9,7 @@ function TypeFilt = Make_Type(ApproxType)
     elseif ApproxType== "hp"
         TypeFilt = 'high';
     elseif ApproxType== "bp"
-        TypeFilt = 'band';
+        TypeFilt = 'bandpass';
     elseif ApproxType== "bs"
         TypeFilt = 'stop';
     else
