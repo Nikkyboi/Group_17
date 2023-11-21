@@ -133,7 +133,7 @@ grid on;
     
 %   Assuming time domain:
 if WindowType == "hann";
-    fprintf('FilterType is IIR \n');
+    fprintf('FilterType is hann \n');
     W = hann(M);
     s = "Hann"
 
