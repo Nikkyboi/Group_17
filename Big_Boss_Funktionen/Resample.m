@@ -13,11 +13,12 @@ elseif TargetSamplingFrequency > InputFs && mod(TargetSamplingFrequency/InputFs,
 end
 
 % Then we resample the inputsignal to the target sampling frequency
-[Signal, NewTimeAxis] = resample(InputSignal,Tx,TargetSamplingFrequency);
+[y, ty] = resample(InputSignal,Tx,TargetSamplingFrequency);
 
+Signal = y;
 % Then we plot it, to verify a successful resample, visually. 
 figure()
 hold on;
 plot(Tx,InputSignal,'r');
-plot(NewTimeAxis,Signal,'b');
+plot(ty,y,'b');
 xlim([0.2 0.4]);

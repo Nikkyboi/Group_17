@@ -1,5 +1,3 @@
-%Function making a Butterworth filter using Matlabs own function 'butter'
-
 function [Bn, An] = Make_Butt(n,fs,CuttOffFreqencies,ApproxType)
     
     TypeFilt = Make_Type(ApproxType);
