@@ -11,7 +11,7 @@ tone
 % Sampling frequency (Hz)
 20000
 % Overall duration of the signal (in s)
-4 
+0.4
 % Periodicity (s) - only applicable for "rect". The width of each rectangle should be half the period. 
 0.5
 % Frequency/-ies of the tone/tone complex (only first if 'tone'
