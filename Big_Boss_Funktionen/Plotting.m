@@ -17,8 +17,8 @@ end
 
 figure()
 hold on
-plot(TimeAxis,Signal,'r')
-plot(TimeAxis,FilteredSignal,'b')
+plot(NewTimeAxis,Signal,'r')
+plot(NewTimeAxis,FilteredSignal,'b')
 xlim([xlimStart xLimEnd])
 ylim([ylimStart ylimEnd]) 
 xlabel('Time in '+XAxType+'(s)')
