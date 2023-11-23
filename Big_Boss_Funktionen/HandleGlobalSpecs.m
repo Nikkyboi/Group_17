@@ -61,7 +61,7 @@ run('Filtering.m');
 % Plotting 
 run('Plotting.m');
 
-%Inputs: [XAxType, TimeAxis, YAxType, Signal, FilteredSignal, ylimSig, XLimTime, Bn, An, TargetSamplingFrequency]
+%Inputs: [XAxType, TimeAxis, YAxType, Signal, FilteredSignal, ylimEnd, XLimEnd, Bn, An, TargetSamplingFrequency]
 %Outputs: [TimeSignalPlot.mat, FourierSpectrumPlot.mat, PoleZeroPlot.mat, MagnitudePhasePlot.mat, RealImaginaryPlot.mat]
  
 % Store data/plots
