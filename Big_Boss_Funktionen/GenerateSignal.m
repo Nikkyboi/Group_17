@@ -32,9 +32,6 @@ else
 end
 NewTimeAxis = TimeVector;
 
-GenerateZeroSignal = zeros(1,TargetSamplingFrequency*TotalDuration);
-fprintf("Done Generate Signal.m \n");
-
 
 
 

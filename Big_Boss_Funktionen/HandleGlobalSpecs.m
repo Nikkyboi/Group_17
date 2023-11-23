@@ -34,7 +34,7 @@ elseif InputSignalType == "generate"
     run('GenerateSignal.m');
 
 %Inputs: [TypeOfSignal, TargetSamplingFrequency, TotalDuration, ToneFrequencies, Periodicity]
-%Outputs: [rect or tone or toneComplex or noise, GenerateZeroSignal, TimeVector]
+%Outputs: [Signal, NewTimeAxis]
  
 else 
     warning('not valid InputSignalType \n');
