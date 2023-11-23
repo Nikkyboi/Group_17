@@ -11,18 +11,18 @@ tone
 % Sampling frequency (Hz)
 20000
 % Overall duration of the signal (in s)
-4 
+4
 % Periodicity (s) - only applicable for "rect". The width of each rectangle should be half the period. 
 0.5
 % Frequency/-ies of the tone/tone complex (only first if 'tone'
 100, 200, 300, 400
 % FREQUENCY ANALYSIS
 % Spectral resolution (Hz)
-1
+4
 % Window type for time frame DFT/STFT. Possible: hann, hamming, rect
-hamming
+hann
 % Overlap for STFT (%)
-50
+60
 % FILTERING
 % Use FIR or IIR?
 fir
