@@ -1,6 +1,6 @@
 %% This is the specification file for the assingnment project in 22051.
 % Use input signal or generated signal? Possible: wav, generate
-wav
+generate
 % WAV-filename
 inputsignal.wav
 % Target sampling frequency (Hz) of the .wav file
@@ -18,11 +18,11 @@ tone
 100, 200, 300, 400
 % FREQUENCY ANALYSIS
 % Spectral resolution (Hz)
-1
+5
 % Window type for time frame DFT/STFT. Possible: hann, hamming, rect
 hann
 % Overlap for STFT (%)
-50
+0
 % FILTERING
 % Use FIR or IIR?
 fir
@@ -37,7 +37,7 @@ lp
 % PLOTTING
 % Limits of axis in time and spectrum.
 % xlim - time (s)
-0.01
+0.2
 % ylim - amplitude (a.u.)
 1
 % frequency on linear or log axis?
@@ -46,7 +46,7 @@ lin
 % log in y? Possible: lin, log
 log
 % xlim - frequency (Hz) - we go only positive frequencies. If nyquist, then fs/2
-nyquist
+200
 % ylim - (a.u.) 
 20
 
