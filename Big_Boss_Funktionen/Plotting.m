@@ -76,6 +76,30 @@ ax.FontSize = 13;
 hold off
 save('FourierSpectrumPlot.mat', 'gcf', '-v7.3');
 
+%Plotting imagniary part and real part of signal.
+figure()
+tiledlayout('flow')
+nexttile
+hold on
+plot(frequency_vec,real(Pos_FFT_Sig),'g')
+xlabel(XAxType+'[Frequency (Hz)]')
+ylabel(YAxType+'Real part of signal')
+xlim([xlimFrequencyStart xlimFrequencyEnd])
+title('Real part of Signal')
+ax = gca; 
+ax.FontSize = 13; 
+hold off
+nexttile
+hold on
+plot(frequency_vec,imag(Pos_FFT_Sig),'r');
+xlabel(XAxType+'[Frequency (Hz)]')
+ylabel('Imagniary part of Signal')
+xlim([xlimFrequencyStart xlimFrequencyEnd])
+title('Imagniary part Signal')
+ax = gca; 
+ax.FontSize = 13; 
+hold off
+
 %Code for generateing plots related to filter.
 figure()
 hold on

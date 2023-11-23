@@ -30,8 +30,12 @@ elseif YAxType == "log"
     Mag_FFT_Sig  = log10(abs(Pos_FFT_Sig));
 end
 
-%Finder alle magnituder der er under 10^-10, og sætter dem lig nul, mht 
-
+%Finder alle magnituder der er under 10^-10, og sætter dem lig nul, mht.
+%fase og magnitude.
+fase = angle(Pos_FFT_Sig);
+IdxIrrelevant = find(10^-10>abs(Pos_FFT_Sig));
+fase(IdxIrrelevant) = 0;
+% Mag_FFT_Sig(IdxIrrelevant) = 0;
 figure()
 hold on
 plot(NewTimeAxis,Signal,'r')
@@ -62,7 +66,7 @@ ax.FontSize = 13;
 hold off
 nexttile
 hold on
-plot(frequency_vec,angle(Pos_FFT_Sig),'r');
+plot(frequency_vec,fase,'r');
 xlabel(XAxType+'[Frequency (Hz)]')
 ylabel('Phase (radians)')
 xlim([xlimFrequencyStart xlimFrequencyEnd])
@@ -71,6 +75,31 @@ ax = gca;
 ax.FontSize = 13; 
 hold off
 save('FourierSpectrumPlot.mat', 'gcf', '-v7.3');
+
+%Plotting imagniary part and real part of signal.
+figure()
+tiledlayout('flow')
+nexttile
+hold on
+plot(frequency_vec,real(Pos_FFT_Sig),'g')
+xlabel(XAxType+'[Frequency (Hz)]')
+ylabel(YAxType+'Real part of signal')
+xlim([xlimFrequencyStart xlimFrequencyEnd])
+ylim([-ylimEnd ylimEnd]) 
+title('Real part of Signal')
+ax = gca; 
+ax.FontSize = 13; 
+hold off
+nexttile
+hold on
+plot(frequency_vec,imag(Pos_FFT_Sig),'r');
+xlabel(XAxType+'[Frequency (Hz)]')
+ylabel('Imagniary part of Signal')
+xlim([xlimFrequencyStart xlimFrequencyEnd])
+title('Imagniary part Signal')
+ax = gca; 
+ax.FontSize = 13; 
+hold off
 
 %Code for generateing plots related to filter.
 figure()

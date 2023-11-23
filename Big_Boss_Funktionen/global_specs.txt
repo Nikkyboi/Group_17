@@ -46,7 +46,7 @@ lin
 % log in y? Possible: lin, log
 log
 % xlim - frequency (Hz) - we go only positive frequencies. If nyquist, then fs/2
-1000
+nyquist
 % ylim - (a.u.) 
 20
 
