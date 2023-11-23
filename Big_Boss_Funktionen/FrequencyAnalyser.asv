@@ -7,21 +7,22 @@
 fftSig = fft(Signal)/max(abs(fft(Signal)));
    
 n = length(fftSig);
-dF = TargetSamplingFrequency/n;
-frequency_vec = 0:dF:(TargetSamplingFrequency/2)-dF;
+dF = n/TargetSamplingFrequency;
+frequency_vec = 
 frequency_spec = linspace(-TargetSamplingFrequency/2, TargetSamplingFrequency/2, n);
-
+ 
 Pos_FFT_Sig = fftSig(1:end/2);
+%Pos_FFT_Sig = fliplr(Pos_FFT_Sig);
 
-% figure(1)
-% subplot(2,1,1)
-% plot(frequency_vec, abs(Pos_FFT_Sig))
-% title("Positive frequency")
-% xlabel("Frequency [Hz]")
-% subplot(2,1,2)
-% plot(frequency_spec, abs(fftSig))
-% title("The whole frequency spectrum")
-% xlabel("Frequency [Hz]")
+figure(1)
+subplot(2,1,1)
+plot(frequency_vec, abs(Pos_FFT_Sig))
+title("Positive frequency")
+xlabel("Frequency [Hz]")
+subplot(2,1,2)
+plot(frequency_spec, abs(fftSig))
+title("The whole frequency spectrum")
+xlabel("Frequency [Hz]")
 
 %   Assuming time domain:
 if WindowType == "hann";

@@ -17,12 +17,11 @@ elseif TypeOfSignal == "tone"
 elseif TypeOfSignal == "tone-complex"
     fprintf('TypeOfSignal is tone-complex \n');
     [toneComplex,TimeVector] = generate_toneComplex(TotalDuration,TargetSamplingFrequency,ToneFrequencies);
-    Signal = toneComplex;
+    toneComplex
     %plot(TimeVector,toneComplex);
 elseif TypeOfSignal == "noise"
     fprintf('TypeOfSignal is noise \n');
     [noise,TimeVector] = generate_noice(TotalDuration,TargetSamplingFrequency);
-    Signal = noise;
     %plot(TimeVector,noise);
 else
     % if the Type of signal do not match our expected inputs, throw a
@@ -30,7 +29,6 @@ else
     warning('ERROR In Generate Signal.m \n');
     warning('not valid TypeOfSignal \n');
 end
-NewTimeAxis = TimeVector;
 
 GenerateZeroSignal = zeros(1,TargetSamplingFrequency*TotalDuration);
 fprintf("Done Generate Signal.m \n");

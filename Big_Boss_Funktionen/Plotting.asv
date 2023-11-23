@@ -30,12 +30,8 @@ elseif YAxType == "log"
     Mag_FFT_Sig  = log10(abs(Pos_FFT_Sig));
 end
 
-%Finder alle magnituder der er under 10^-10, og sætter dem lig nul, mht.
-%fase og magnitude.
-fase = angle(Pos_FFT_Sig);
-IdxIrrelevant = find(10^-10>abs(Pos_FFT_Sig));
-fase(IdxIrrelevant) = 0;
-% Mag_FFT_Sig(IdxIrrelevant) = 0;
+%Finder alle magnituder der er under 10^-10, og sætter dem lig nul, mht 
+
 figure()
 hold on
 plot(NewTimeAxis,Signal,'r')
@@ -66,7 +62,7 @@ ax.FontSize = 13;
 hold off
 nexttile
 hold on
-plot(frequency_vec,fase,'r');
+plot(frequency_vec,angle(Pos_FFT_Sig),'r');
 xlabel(XAxType+'[Frequency (Hz)]')
 ylabel('Phase (radians)')
 xlim([xlimFrequencyStart xlimFrequencyEnd])

@@ -44,7 +44,7 @@ end
 % PLOTTING
 % Limits of axis in time and spectrum.
 % xlim - time (s)
-xLimEnd = str2double(GS(40,1));
+xTimeLimEnd = str2double(GS(40,1));
 % ylim - amplitude (a.u.)
 ylimAmplityde = str2double(GS(42,1));
 % frequency on linear or log axis?
@@ -53,6 +53,6 @@ XAxType = GS(45,1);
 % log in y? Possible: lin, log
 YAxType = GS(47,1);
 % xlim - frequency (Hz) - we go only positive frequencies. If nyquist, then fs/2
-xlimFrequency = GS(49,1);
+xlimFrequencyEnd = GS(49,1);
 % ylim - (a.u.) 
-ylimEnd = str2double(GS(42,1));
+ylimEnd = str2double(GS(51,1));
