@@ -4,7 +4,7 @@
 %%  DFT below uses the entire signal
     
 %   FFT of the whole signal
-fftSig = fft(Signal)/max(abs(fft(Signal)));
+fftSig = fft(Signal)/length(Signal);
    
 n = length(fftSig);
 dF = TargetSamplingFrequency/n;
