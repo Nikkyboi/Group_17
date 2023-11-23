@@ -4,6 +4,8 @@ close all;
  
 % easy to change variables
 RippledB = 6;
+ylimStart = 0;
+xlimStart = 0;
  
 %Read Global Specs
 run('ReadGlobalSpecs.m');
