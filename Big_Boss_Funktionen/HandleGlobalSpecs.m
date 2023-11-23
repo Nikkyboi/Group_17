@@ -38,7 +38,7 @@ elseif InputSignalType == "generate"
 else 
     warning('not valid InputSignalType \n');
     warning('not wav or generate \n');
- 
+end
  
 % Frequency analyser
 run('FrequencyAnalyser.m');

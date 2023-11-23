@@ -4,7 +4,7 @@ wav
 % WAV-filename
 inputsignal.wav
 % Target sampling frequency (Hz) of the .wav file
-10000
+22050
 % SIGNAL GENERATOR
 % Type of signal. Possible: rect, tone, tone-complex, noise
 tone

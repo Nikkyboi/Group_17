@@ -16,7 +16,7 @@ end
 [y, ty] = resample(InputSignal,Tx,TargetSamplingFrequency);
 
 Signal = y;
-ty = NewTimeAxis;
+NewTimeAxis = ty;
 % Then we plot it, to verify a successful resample, visually. 
 figure()
 hold on;
