@@ -4,7 +4,6 @@ close all;
  
 % easy to change variables
 RippledB = 6;
-ylimStart = 0;
 xTimelimStart = 0;
 xlimFrequencyStart = 0;
 
@@ -67,7 +66,7 @@ run('Plotting.m');
 %Outputs: [TimeSignalPlot.mat, FourierSpectrumPlot.mat, PoleZeroPlot.mat, MagnitudePhasePlot.mat, RealImaginaryPlot.mat]
  
 % Store data/plots
-run('StoreData');
+%run('StoreData');
 
 %Inputs: [TimeSignalPlot, FourierSpectrumPlot, PoleZeroPlot, MagnitudePhasePlot, RealImaginaryPlot]
 %Outputs: [TimeSignalPlot.png, FourierSpectrumPlot.png, PoleZeroPlot.png, MagnitudePhasePlot.png, RealImaginaryPlot.png]

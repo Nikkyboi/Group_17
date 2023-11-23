@@ -48,7 +48,7 @@ legend('Orginal signal','Filtered Signal')
 title('Orginal signal vs. filteret signal')
 ax = gca; 
 ax.FontSize = 13; 
-save('TimeSignalPlot.mat', 'gcf', '-v7.3');
+saveas(gcf,'TimeSignalPlot.png')
 
 %Code for generation plots related to fourier spectrum.
 figure()
@@ -74,7 +74,8 @@ title('Phase plot of Signal')
 ax = gca; 
 ax.FontSize = 13; 
 hold off
-save('FourierSpectrumPlot.mat', 'gcf', '-v7.3');
+saveas(gcf,'FourierSpectrumPlot.png')
+
 
 %Plotting imagniary part and real part of signal.
 figure()
@@ -99,21 +100,21 @@ title('Imagniary part Signal')
 ax = gca; 
 ax.FontSize = 13; 
 hold off
+saveas(gcf,'ImagniaryRealPartSignal.png')
 
 %Code for generateing plots related to filter.
 figure()
 hold on
 zplane(Bn,An);
 title('Pole-zero plot for filter, specified from global\_specs.txt')
-save('PoleZeroPlot.mat', 'gcf', '-v7.3');
+saveas(gcf,'PoleZeroPlot.png')
 figure()
 hold on
 freqz(Bn,An,10000,TargetSamplingFrequency)
 title('Frequency response of filter, specified from global\_specs.txt')
-save('MagnitudePhasePlot.mat', 'gcf', '-v7.3');
+saveas(gcf,'Frequency_response_of_filter.png')
 
-% Code for generating plot for Real Imaginary Part
-figure()
-hold on
 
-save('RealImaginaryPlot.mat', 'gcf', '-v7.3');
+% Code for generating plot for STFT.
+
+

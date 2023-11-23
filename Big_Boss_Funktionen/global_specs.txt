@@ -1,6 +1,6 @@
 %% This is the specification file for the assingnment project in 22051.
 % Use input signal or generated signal? Possible: wav, generate
-generate
+wav
 % WAV-filename
 inputsignal.wav
 % Target sampling frequency (Hz) of the .wav file
@@ -27,13 +27,13 @@ hann
 % Use FIR or IIR?
 fir
 % filter order
-15
+40
 % Approximation method. Possible: butterworth, chebychevI, chebychevII, cauer
 butterworth
 % type. Possible: lp, hp, bp, bs
 lp
 %cut-off frequency/-ies (Hz)
-1000
+250
 % PLOTTING
 % Limits of axis in time and spectrum.
 % xlim - time (s)
