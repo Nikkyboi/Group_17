@@ -118,13 +118,12 @@ saveas(gcf,'Frequency_response_of_filter.png')
 % Code for generating plot for STFT.
 figure();
 hold on
-imagesc(t, f, log10(abs(s))); 
+imagesc(t, f, 20*log10(abs(s))); 
 axis xy; 
 colorbar;
 xlabel('Time (s)');
 ylabel('Frequency (Hz)');
-ylim([xlimFrequencyStart xlimFrequencyEnd])
-xlim([xTimelimStart xTimeLimEnd])
+axis tight
 title('Spectrogram from STFT');
 ax = gca; 
 ax.FontSize = 13; 
