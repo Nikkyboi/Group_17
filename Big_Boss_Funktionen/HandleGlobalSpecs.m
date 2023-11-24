@@ -3,7 +3,7 @@ clear;
 close all;
  
 % easy to change variables
-RippledB = 6; %Maximum allow ripple of pass and stopband.
+RippledB = 6; %Maximum allow ripple of pass and/or stopband. (for cauer this is the stopband ripple.)
 xTimelimStart = 0; %Start of the plotting limit for time. see Plotting.m
 xlimFrequencyStart = 0; %Start of the plotting limit for frequency. see Plotting.m
 
@@ -64,12 +64,7 @@ run('Plotting.m');
 
 %Inputs: [XAxType, TimeAxis, YAxType, Signal, FilteredSignal, ylimEnd, XLimEnd, Bn, An, TargetSamplingFrequency]
 %Outputs: [TimeSignalPlot.mat, FourierSpectrumPlot.mat, PoleZeroPlot.mat, MagnitudePhasePlot.mat, RealImaginaryPlot.mat]
- 
-% Store data/plots
-%run('StoreData');
 
-%Inputs: [TimeSignalPlot, FourierSpectrumPlot, PoleZeroPlot, MagnitudePhasePlot, RealImaginaryPlot]
-%Outputs: [TimeSignalPlot.png, FourierSpectrumPlot.png, PoleZeroPlot.png, MagnitudePhasePlot.png, RealImaginaryPlot.png]
 
 
 
