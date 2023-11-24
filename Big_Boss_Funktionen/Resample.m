@@ -17,9 +17,3 @@ end
 
 Signal = y;
 NewTimeAxis = ty;
-% Then we plot it, to verify a successful resample, visually. 
-figure()
-hold on;
-plot(Tx,InputSignal,'r');
-plot(ty,y,'b');
-xlim([0.2 0.4]);

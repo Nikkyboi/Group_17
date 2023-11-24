@@ -36,6 +36,25 @@ fase = angle(Pos_FFT_Sig);
 IdxIrrelevant = find(10^-10>abs(Pos_FFT_Sig));
 fase(IdxIrrelevant) = 0;
 % Mag_FFT_Sig(IdxIrrelevant) = 0;
+
+
+% A plot to verify a successful resample, visually. 
+if InputSignalType == "wav"
+figure()
+hold on;
+plot(Tx,InputSignal,'r');
+plot(NewTimeAxis,Signal,'b');
+xlim([xTimelimStart xTimeLimEnd])
+ylim([-ylimAmplityde ylimAmplityde])
+xlabel('Time in (s)')
+ylabel('Time in (Amplitude)')
+legend('Orginal signal','Resampled Signal')
+title('Plot of signal vs. Resampled Signal')
+ax = gca; 
+ax.FontSize = 13; 
+saveas(gcf,'Resample plot.png')
+end
+
 figure()
 hold on
 plot(NewTimeAxis,Signal,'r')

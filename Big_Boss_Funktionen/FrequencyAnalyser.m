@@ -26,21 +26,21 @@ Pos_FFT_Sig = fftSig(1:end/2);
 %   Assuming time domain:
 if WindowType == "hann";
     N = ceil(TargetSamplingFrequency/SpectralRes);
-    fprintf('FilterType is hann \n');
+    fprintf('WindowType is hann \n');
     W = hann(N);
-    s = "Hann"
+    s = "Hann";
 
 elseif WindowType == "hamming";
     N = ceil(TargetSamplingFrequency/SpectralRes);
     fprintf('WindowType is hamming \n');
     W = hamming(N);
-    s = "Hamming"
+    s = "Hamming";
 
 elseif WindowType == "rect";
-    N = ceil(TargetSamplingFrequency/SpectralRes)
+    N = ceil(TargetSamplingFrequency/SpectralRes);
     fprintf('WindowType is rect \n');
     W = rectwin(N);
-    s = "Rectangular"
+    s = "Rectangular";
 end
 
 % Time Vector:

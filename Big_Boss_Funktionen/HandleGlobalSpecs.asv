@@ -4,8 +4,8 @@ close all;
  
 % easy to change variables
 RippledB = 6; %Maximum allow ripple of pass and stopband.
-xTimelimStart = 0; %Start of the plotting limit for time. see Plotting.m
-xlimFrequencyStart = 0; %Start of the plotting limit for frequency. see Plotting.m
+xTimelimStart = 0; %Start of the plotting limit. see Plotting.m
+xlimFrequencyStart = 0; %Start of t
 
  
 %Read Global Specs
