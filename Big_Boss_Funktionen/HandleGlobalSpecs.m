@@ -13,8 +13,8 @@ run('ReadGlobalSpecs.m');
 
 %Inputs: [GlobalSpecs.txt]
 %Outputs: [GS, InputSignalType, FileName, TargetSamplingFrequency, TypeOfSignal, SamplingFrequency, TotalDuration, Periodicity, Frequencies_string,
-%ToneFrequencies(4), SpectralRes, WindowType, Overlap, FilterType, FilterOrder, ApproxMethod, ApproxType, FrequenciesString, CutOffFrequencies, xLimTime,
-%ylimAmplitude, XAxType, xlimFrequency, ylimSig] 
+%ToneFrequencies(4), SpectralRes, WindowType, Overlap, FilterType, FilterOrder, ApproxMethod, ApproxType, CutOffFrequencies, xLimTime,
+%ylimAmplitude, XAxType, YAxType, xlimFrequency, ylimEnd] 
  
 if InputSignalType == "wav"
     % Read the .Wav file 
@@ -44,7 +44,7 @@ end
 % Frequency analyser
 run('FrequencyAnalyser.m');
 
-%Inputs: [SamplingFrequency, TotalDuration, WindowType]
+%Inputs: [Signal, TargetSamplingFrequency, SpectralRes, WindowType, Overlap]
 %Outputs: [Windowed_Signal, frequency_vec, Pos_Freq]
  
 % Filter Design
