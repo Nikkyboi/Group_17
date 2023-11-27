@@ -1,0 +1,55 @@
+%% This is the specification file for the assingnment project in 22051.
+% Use input signal or generated signal? Possible: wav, generate
+wav
+% WAV-filename
+inputsignal.wav
+% Target sampling frequency (Hz) of the .wav file
+10000
+% SIGNAL GENERATOR
+% Type of signal. Possible: rect, tone, tone-complex, noise
+tone
+% Sampling frequency (Hz)
+20000
+% Overall duration of the signal (in s)
+4 
+% Periodicity (s) - only applicable for "rect". The width of each rectangle should be half the period. 
+0.5
+% Frequency/-ies of the tone/tone complex (only first if 'tone'
+100, 200, 300, 400
+% FREQUENCY ANALYSIS
+% Spectral resolution (Hz)
+1
+% Window type for time frame DFT/STFT. Possible: hann, hamming, rect
+rect
+% Overlap for STFT (%)
+50
+% FILTERING
+% Use FIR or IIR?
+fir
+% filter order
+4
+% Approximation method. Possible: butterworth, chebychevI, chebychevII, cauer
+butterworth
+% type. Possible: lp, hp, bp, bs
+bp
+%cut-off frequency/-ies (Hz)
+1000, 4000
+% PLOTTING
+% Limits of axis in time and spectrum.
+% xlim - time (s)
+0.01
+% ylim - amplitude (a.u.)
+1
+% frequency on linear or log axis?
+% log in x? Possible: lin, log
+lin
+% log in y? Possible: lin, log
+log
+% xlim - frequency (Hz) - we go only positive frequencies. If nyquist, then fs/2
+nyquist
+% ylim - (a.u.) 
+20
+
+
+
+
