@@ -5,10 +5,6 @@
 %If the frequency given is nyquist, then we calculate the highest frequency
 %and use that as our limit in the graph, if not, we just use the number
 %given.
-%Doing fft of filtered signal:
-FFTFilteredSignal = fft(FilteredSignal);
-FFTFilteredSignal = FFTFilteredSignal(1:end/2);
-
 if xlimFrequencyEnd == 'nyquist'
     xlimFrequencyEnd = TargetSamplingFrequency/2;
 else
@@ -158,52 +154,30 @@ saveas(gcf,'Spectrogram_STFT.png')
 
 
 %Code for generating DFT of filtered signal with magnitude phase:
-%Remove % to run.
-% figure()
-% tiledlayout('flow')
-% nexttile
-% hold on
-% plot(frequency_vec,Mag_FFTFilteredSignal,'g')
-% xlabel(XAxType+'[Frequency (Hz)]')
-% ylabel(YAxType+'(Magnitude)')
-% xlim([xlimFrequencyStart xlimFrequencyEnd])
-% ylim([-ylimEnd ylimEnd]) 
-% title('Magnitude plot of Filtered Signal')
-% ax = gca; 
-% ax.FontSize = 13; 
-% hold off
-% nexttile
-% hold on
-% plot(frequency_vec,fase_Filtered,'r');
-% xlabel(XAxType+'[Frequency (Hz)]')
-% ylabel('Phase (radians)')
-% xlim([xlimFrequencyStart xlimFrequencyEnd])
-% title('Phase plot of filtered Signal')
-% ax = gca; 
-% ax.FontSize = 13; 
-% hold off
-% 
-% %Code for generating DFT real and imagniary parts.
-% figure()
-% tiledlayout('flow')
-% nexttile
-% hold on
-% plot(frequency_vec,real(FFTFilteredSignal),'g')
-% xlabel(XAxType+'[Frequency (Hz)]')
-% ylabel(YAxType+'Real part of signal')
-% xlim([xlimFrequencyStart xlimFrequencyEnd])
-% title('Real part of filtered Signal')
-% ax = gca; 
-% ax.FontSize = 13; 
-% hold off
-% nexttile
-% hold on
-% plot(frequency_vec,imag(FFTFilteredSignal),'r');
-% xlabel(XAxType+'[Frequency (Hz)]')
-% ylabel('Imagniary part of Signal')
-% xlim([xlimFrequencyStart xlimFrequencyEnd])
-% title('Imagniary part filtered Signal')
-% ax = gca; 
-% ax.FontSize = 13; 
-% hold off
+figure()
+tiledlayout('flow')
+nexttile
+hold on
+plot(frequency_vec,Mag_FFTFilteredSignal,'g')
+xlabel(XAxType+'[Frequency (Hz)]')
+ylabel(YAxType+'(Magnitude)')
+xlim([xlimFrequencyStart xlimFrequencyEnd])
+ylim([-ylimEnd ylimEnd]) 
+title('Magnitude plot of Filtered Signal')
+ax = gca; 
+ax.FontSize = 13; 
+hold off
+nexttile
+hold on
+plot(frequency_vec,fase_Filtered,'r');
+xlabel(XAxType+'[Frequency (Hz)]')
+ylabel('Phase (radians)')
+xlim([xlimFrequencyStart xlimFrequencyEnd])
+title('Phase plot of filtered Signal')
+ax = gca; 
+ax.FontSize = 13; 
+hold off
+
+%Code for generating DFT of filtered signal with magnitude phase:
+
 

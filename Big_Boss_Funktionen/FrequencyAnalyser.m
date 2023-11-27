@@ -13,6 +13,7 @@ frequency_spec = linspace(-TargetSamplingFrequency/2, TargetSamplingFrequency/2,
 
 Pos_FFT_Sig = fftSig(1:end/2);
 
+
 % figure(1)
 % subplot(2,1,1)
 % plot(frequency_vec, abs(Pos_FFT_Sig))
